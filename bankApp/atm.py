@@ -22,7 +22,7 @@ def withdraw(cardHolder):
     try:
         withdraw = float(input("How much $$ you want to withdraw?: "))
         if(cardHolder.get_balance()< withdraw):
-                ## if accType = "S" then enabled balance overdraft to -300 
+                ## if accType = "S" then enable balance overdraft up to -300 
                 if(cardHolder.get_accType()=="S" and (cardHolder.get_balance() - withdraw) >= -300):
                     cardHolder.set_balance(cardHolder.get_balance() - withdraw)
                     print("You good to go. Thank you") 
@@ -36,7 +36,8 @@ def withdraw(cardHolder):
 
 def check_balance(cardHolder):
     print("Your current balance is: ", cardHolder.get_balance())
-  
+    
+#gen_cardNum() - just used for gen random cardNum + PIN  
 def gen_cardNum():
     CN = str(random.randint(100000, 1000000))
     PIN = str(random.randint(1000, 9999))
@@ -46,7 +47,7 @@ def gen_cardNum():
 if __name__ == "__main__":
     current_user = Cardholder("", "", "", "", "", "") 
     
-    #gen_cardNum() - just used for gen random cardNum + PIN
+    
     
     ### create repo of users
     list_of_cardHolders = []
