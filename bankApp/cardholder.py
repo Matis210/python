@@ -41,7 +41,7 @@ class Cardholder():
         self.lastName = newVal
     def set_balance(self, newVal):
         self.balance = newVal
-    def chance_accType(self):
+    def change_accType(self):
         if(self.accType=="C"):
              self.accType = "S"      
         else:
