@@ -91,9 +91,9 @@ if __name__ == "__main__":
     ### create repo of users
     list_of_cardHolders = []
     list_of_cardHolders.append(Cardholder("529633", 6008, "Matus", "Potucek", 5000, "S" ))
-    list_of_cardHolders.append(Cardholder("182038", 2161, "Robert", "Kaiser", 2000, "C" ))
-    list_of_cardHolders.append(Cardholder("367442", 2640, "Monika", "Potuckova", 3000, "C" ))
-    list_of_cardHolders.append(Cardholder("771372", 4585, "Martina", "Potuckova", 7000, "S" ))
+    list_of_cardHolders.append(Cardholder("182038", 2161, "Robert", "Doe", 2000, "C" ))
+    list_of_cardHolders.append(Cardholder("367442", 2640, "Monika", "Krabs", 3000, "C" ))
+    list_of_cardHolders.append(Cardholder("771372", 4585, "Martina", "Fishblue", 7000, "S" ))
     
 ### prompt user for debit card
     debit_cardNum = ""
