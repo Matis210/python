@@ -2,6 +2,21 @@
 from cardholder import Cardholder
 import random
 import time
+from threading import Thread
+import os
+
+max_attempts = 3
+
+
+def log_time():
+    while True:
+        try:
+            with open("text.txt","a") as file:
+                file.write("time logged in: "+time.ctime(time.time())+"\n")
+                time.sleep(30)
+        except FileNotFoundError:
+            print("File wasn't found")
+        
 
 def print_menu():
     print("Please choose one of these following options... ")
@@ -9,6 +24,31 @@ def print_menu():
     print("2. Withdraw ")
     print("3. Show Balance")
     print("4. Exit ")
+    
+    
+def show_main_menu(attempts):
+    ## print options
+    if(attempts < max_attempts): 
+        print("Welcome ",current_user.get_firstName(),"!")
+        option = 0
+        while True:
+            print_menu()
+            try:
+                option = int(input())
+            except:
+                print("Invalid input, please try again.")    
+            if option == 1:
+                deposit(current_user)
+            elif option == 2:
+                withdraw(current_user)
+            elif option == 3:
+                check_balance(current_user)
+            elif option == 4:
+                time.sleep(0.5)
+                break
+            print("Thank your for using our terminal.")
+    else:
+        print("Max attempts reached, you will need to insert your card again.")    
     
 def deposit(cardHolder):
     try:
@@ -22,7 +62,7 @@ def withdraw(cardHolder):
     try:
         withdraw = float(input("How much $$ you want to withdraw?: "))
         if(cardHolder.get_balance()< withdraw):
-                ## if accType = "S" then enable balance overdraft up to -300 
+                ## if accType = "S" then enabled balance overdraft to -300 
                 if(cardHolder.get_accType()=="S" and (cardHolder.get_balance() - withdraw) >= -300):
                     cardHolder.set_balance(cardHolder.get_balance() - withdraw)
                     print("You good to go. Thank you") 
@@ -36,8 +76,7 @@ def withdraw(cardHolder):
 
 def check_balance(cardHolder):
     print("Your current balance is: ", cardHolder.get_balance())
-    
-#gen_cardNum() - just used for gen random cardNum + PIN  
+  
 def gen_cardNum():
     CN = str(random.randint(100000, 1000000))
     PIN = str(random.randint(1000, 9999))
@@ -47,7 +86,7 @@ def gen_cardNum():
 if __name__ == "__main__":
     current_user = Cardholder("", "", "", "", "", "") 
     
-    
+    #gen_cardNum() - just used for gen random cardNum + PIN
     
     ### create repo of users
     list_of_cardHolders = []
@@ -73,6 +112,7 @@ if __name__ == "__main__":
 ### Prompt for PIN ,max attempts are set to 3
     max_attempts = 3
     attempts = 1
+    
     while True:
         try:
             userPIN= int(input("Please enter your PIN: ").strip())
@@ -87,27 +127,7 @@ if __name__ == "__main__":
         except:
             time.sleep(0.5)
             print("Invalid PIN, please try again")
-                
-    ### print options
-    if(attempts < max_attempts):     
-        print("Welcome ",current_user.get_firstName(),"!")
-        option = 0
-        while True:
-            print_menu()
-            try:
-                option = int(input())
-            except:
-                print("Invalid input, please try again.")    
-            if option == 1:
-                deposit(current_user)
-            elif option == 2:
-                withdraw(current_user)
-            elif option == 3:
-                check_balance(current_user)
-            elif option == 4:
-                time.sleep(0.5)
-                break 
-        
-        print("Thank your for using our terminal.")
-    else:
-        print("Max attempts reached, you will need to insert your card again.")
+    
+    t2 = Thread(target=log_time, daemon=True)
+    t2.start()
+    show_main_menu(attempts)

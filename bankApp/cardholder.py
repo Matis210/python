@@ -44,11 +44,9 @@ class Cardholder():
     def chance_accType(self):
         if(self.accType=="C"):
              self.accType = "S"      
-        elif self.accType=="S":
-            self.accType = "C"        
         else:
-            self.accType = "C"
-            
+            self.accType = "C"        
+           
         
     def print_out(self):
         print("Card # :",self.cardNum)
